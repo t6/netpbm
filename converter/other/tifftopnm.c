@@ -46,6 +46,7 @@
    give the user the -byrow option to order (2) only.
 */
 
+#define _DEFAULT_SOURCE 1  /* New name for SVID & BSD source defines */
 #define _BSD_SOURCE 1      /* Make sure strdup() is in string.h */
 #define _XOPEN_SOURCE 500  /* Make sure strdup() is in string.h */
 
@@ -1507,6 +1508,13 @@ convertRasterInMemory(pnmOut *           const pnmOutP,
             /* Note that TIFFRGBAImageGet() converts any bits per sample
                to 8.  Maxval of the raster it returns is always 255.
             */
+            if (cols > UINT_MAX/rows) {
+                pm_message("%u rows of %u columns is too large to compute",
+                           rows, cols);
+                *statusP = CONV_OOM;
+                return;
+            }
+
             MALLOCARRAY(raster, cols * rows);
             if (raster == NULL) {
                 pm_message("Unable to allocate space for a raster of %u "

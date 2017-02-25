@@ -4,6 +4,28 @@ Netpbm.
 CHANGE HISTORY 
 --------------
 
+17.01.24      Release 10.77.02
+
+              tifftopnm: Fix memory corruption when image is more pixels
+              than can be represented as a C unsigned integer.  Broken in
+              Netpbm 10.11 (October 2002).
+
+17.01.11 BJH  Release 10.77.01
+
+              svgtopam: Fix crash when out of memory.  Always broken
+              (svgtopam was new in Netpbm 10.33 (March 2006)).
+
+16.12.25 BJH  Release 10.77.00
+
+              pnmpad: fix bug: incorrect output width.  Introduced in
+              Netpbm 10.72 (July 2015).
+
+              Makeman: slight improvement to formatting of man pages.
+              Thanks Werner LEMBERG <wl@gnu.org>.
+
+              Test: skip tests of some parts that are configured out of the
+              build.
+
 16.09.27 BJH  Release 10.76.00
 
               pnmquantall: Fix failure when temporary file location is
@@ -18,6 +40,8 @@ CHANGE HISTORY
 
               cmuwmtopbm: fix trivial memory leak.  Always broken (cmuwmtopbm
               was in primordial Pbmplus, in 1988).
+
+              Build: Add PKG_CONFIG make variable.
 
               Build: tifftopnm.c: fix undefined WIFSIGNALED, etc. in 
 
