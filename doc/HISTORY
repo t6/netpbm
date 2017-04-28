@@ -4,6 +4,41 @@ Netpbm.
 CHANGE HISTORY 
 --------------
 
+17.04.23 BJH  Release 10.78.03
+
+              libnetpbm: fix bug: pm_system_XXX closes Standard Input if you
+              supply a Standard Output accepter but not a Standard Input
+              feeder.  Broken since Netpbm 10.40 (September 2007).
+
+              Windows: fix bug: pm_system_lp() and pm_system_vp() fail
+              silently instead of with a clear error message in an environment
+              that does not provide Unix process management.  Always broken.
+              (pm_system_lp and pm_system_vp were new in Netpbm 10.40
+              (September 2007), but wouldn't even compile until Netpbm 10.42
+              (March 2008)).
+
+              Build: don't try to build standardppmdfont.c if it already
+              exists (so don't require ppmdcfont to exist).  Broken around
+              Netpbm 10.35 (2006).
+
+17.04.15 BJH  Release 10.78.02
+
+              pamcomp: fix incorrect output with -mixtransparency.
+              Always broken.  (-mixtransparency was new in Netpbm 10.56,
+              September 2011).
+
+              pamcomp: remove debug trace message with -mixtransparency.
+              Always broken.  (-mixtransparency was new in Netpbm 10.56,
+              September 2011).
+
+17.04.04 BJH  Release 10.78.01
+
+              pnmtojpeg: fix array bounds violation in argument list.  Always
+              broken (pnmtojpeg was new to Netpbm in Netpbm 8.2 (March 2000).
+
+              Debian packaging: fix bug: don't try to include Manweb files, as
+              it is no longer packaged by 'make package'.
+
 17.03.28 BJH  Release 10.78.00
 
               ppmpat: Add -color.
