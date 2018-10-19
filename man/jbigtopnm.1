@@ -3,20 +3,28 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Jbigtopnm User Manual" 0 "19 November 2003" "netpbm documentation"
+.TH "Jbigtopnm User Manual" 0 "29 September 2018" "netpbm documentation"
 
-.UN lbAB
 .SH NAME
 jbigtopnm - JBIG to PNM image file converter
 
-.UN lbAC
+.UN synopsis
 .SH SYNOPSIS
 
 \fBjbigtopnm\fP
-[\fIoptions\fP]
+[\fB-xmax\fP]
+[\fB-ymax\fP]
+[\fB-binary\fP]
+[\fB-diagnose\fP]
+[\fB-plane\fP]
 [\fIinput-file\fP [\fIoutput-file\fP]]
+.PP
+Minimum unique abbreviation of option is acceptable.  You may use double
+hyphens instead of single hyphen to denote options.  You may use white
+space in place of the equals sign to separate an option name from its value.
 
-.UN lbAD
+
+.UN description
 .SH DESCRIPTION
 .PP
 This program is part of
@@ -40,8 +48,11 @@ specified maximal output image size.  The input file can consist of
 several concatenated BIEs which contain different increasing
 resolution layers of the same image.
 
-.UN lbAE
+.UN options
 .SH OPTIONS
+.PP
+Before Netpbm 10.85 (December 2018), only single-character single-hyphen
+abbreviations of the options are accepted.
 
 
 
@@ -81,13 +92,13 @@ specified single plane as a PBM file.  The first plane has number 0.
 
 
 
-.UN lbAF
+.UN standards
 .SH STANDARDS
 .PP
 This program implements the JBIG image coding algorithm as
 specified in ISO/IEC 11544:1993 and ITU-T T.82(1993).
 
-.UN lbAG
+.UN author
 .SH AUTHOR
 
 
@@ -102,14 +113,14 @@ of his
 .PP
 \fBjbigtopnm\fP is part of the Netpbm package of graphics tools.
 
-.UN lbAH
+.UN seealso
 .SH SEE ALSO
 .BR "pnm" (5)\c
 \&,
 .BR "pnmtojbig" (1)\c
 \&
 
-.UN lbAI
+.UN license
 .SH LICENSE
 
 If you use \fBjbigtopnm\fP, you are using various patents,
