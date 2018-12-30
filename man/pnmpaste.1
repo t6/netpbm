@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmpaste User Manual" 0 "05 July 2017" "netpbm documentation"
+.TH "Pnmpaste User Manual" 0 "16 December 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -71,17 +71,22 @@ The default is \fB-replace\fP, which means to do the obvious paste:
 replace pixels of the "into" image with those of the
 "from" image.
 .PP
-\fB-and\fP, \fB-or\fP, and \fB-xor\fP are allowed only if both
-input images are PBM images.  They say to combine the "from" and
-"into" images by performing boolean operations:  Each pixel of
-the output image is the result of the boolean operation on the corresponding
-pixels of the two input image, where white is TRUE and black is FALSE.
+\fB-and\fP, \fB-nand\fP, \fB-or\fP, \fB-nor\fP, \fB-xor\fP,
+and \fBnxor\fP are allowed only if both input images are PBM images.  They
+say to combine the "from" and "into" images by performing boolean operations:
+Each pixel of the output image is the result of the boolean operation on the
+corresponding pixels of the two input image, where white is TRUE and black is
+FALSE.
 .PP
 Note that this is different from what you would get by doing a bit
 arithmetic on the bits in the PBM images, because in PBM, white is
 represented by a 0 bit, and 0 in bit arithmetic corresponds to FALSE
 in boolean arithmetic.
-
+.PP
+\fB-nand\fP, \fB-nor\fP, and \fB-nxor\fP were new in Netpbm 10.85
+(December 2018).
+  
+  
 .UN seealso
 .SH SEE ALSO
 .BR "pamcomp" (1)\c

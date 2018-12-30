@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pbmtext User Manual" 0 "04 April 2018" "netpbm documentation"
+.TH "Pbmtext User Manual" 0 "01 December 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -20,6 +20,7 @@ pbmtext - render text into a PBM image
 [\fB-lspace\fP \fIpixels\fP]
 [\fB-nomargins\fP]
 [\fB-width\fP \fIpixels\fP]
+[\fB-dry-run\fP]
 [\fB-text-dump\fP]
 [\fItext\fP]
 .PP
@@ -173,6 +174,17 @@ have line breaks where they make sense, and \fBpbmtext\fP simply
 truncates each line as needed to fit the specified width.
 
 .TP
+\fB-dry-run\fP
+.sp
+With this option, instead of outputting an image of the text,
+\fBpbmtext\fP just writes to Standard Output a message telling the dimensions
+of the image it would have produced.
+.sp
+You can specify only one of \fB-dry-run\fP and \fB-text-dump\fP.
+.sp
+This option was new in Netpbm 10.75 (June 2016).
+  
+.TP
 \fB-text-dump\fP
 This option causes \fBpbmtext\fP just to write to Standard Output the text in
 ASCII that would be rendered.  The output reflects any text formatting,
@@ -181,6 +193,10 @@ problems.  This option was new in Netpbm 10.82 (March 2018).
 .sp
 When \fB-wchar\fP is in effect, the output text will be in the encoding
 specified by the current locale.
+.sp
+You can specify only one of \fB-dry-run\fP and \fB-text-dump\fP.
+.sp
+This option was new in Netpbm 10.82 (March 2018).
 
 
 

@@ -98,7 +98,7 @@ programs.
 .PP
 \fIpsfile\fP[\fB.ps\fP] is the name of the input file.
 \fBpstopnm\fP will add the \fBps\fP to the end of the name you specify if no
-file exists by the exact name you specify, but one with added does.
+file exists by the exact name you specify, but one with \fB.ps\fPadded does.
 For Standard Input, use \fB-\fP or just don't give any argument.
 .PP
 If you use the \fB-stdout \fP option or your input is from Standard
@@ -130,7 +130,7 @@ distinction does not exist for non-EPSF Postscript input
 - \fBpstopnm\fP generates an output image for each page of the input
 regardless of whether the input is from Standard Input or from a named file.
 .PP
-Note that you can generated both kinds of files - concatenated EPSF
+Note that you can generate both kinds of files - concatenated EPSF
 and multi-page non-EPSF - with \fBpnmtops\fP, selecting with the
 \fB-setpage\fP option.
 .PP
@@ -265,8 +265,8 @@ driver and generates correct PPM output.
 .PP
 There is some good advice on converting to and from Postscript, in the
 document
-.BR "Postcript
-File Conversions" (1)\c
+.BR "
+Postcript File Conversions" (1)\c
 \& by Andrew T. Young.
 
 .UN reversible

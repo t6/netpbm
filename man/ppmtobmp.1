@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Ppmtobmp User Manual" 0 "29 October 2008" "netpbm documentation"
+.TH "Ppmtobmp User Manual" 0 "20 December 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -62,6 +62,11 @@ represent all the colors in the input image.  If you specify a number
 too small to represent all the colors in the input image,
 \fBppmtobmp\fP tells you and terminates.  You can use \fBpnmquant\fP
 or \fBppmdither\fP to reduce the number of colors in the image.
+.sp
+Before Netpbm 10.85 (December 2018), \fBppmtobmp\fP ignores this option if
+the input is PBM and produces a BMP with 1 bit per pixel.  With these
+versions, if you want more than that, use \fBpbmtopgm\fP to convert the PBM
+to PGM first.
 
 .TP
 \fB-mapfile=\fP\fIfilename\fP
@@ -93,6 +98,23 @@ must have at most 256 pixels.
 .sp
 You may find \fBpnmcolormap\fP useful in generating the palette
 file.  \fBpamseq\fP too.
+.sp
+In the case of grayscale image, if you are processing the BMP image, it
+  may be convenient for you to have the actual gray values in the raster
+  part of the image rather than arbitrary indices into a palette.  There is
+  no BMP format specifically for that, but you can achieve it by using a
+  palette in which each index is equal to the indexed gray value, and then
+  ignoring the palette when you process the BMP image.
+.sp
+Here is an example of doing that:
+
+.nf
+    \f(CW
+    $ pamseq 1 255 >mapfile.pgm
+
+    $ ppmtobmp -mapfile=mapfile.pgm input.pgm >output.bmp
+    \fP
+.fi
 .sp
 This option was new in Netpbm 10.45 (December 2008).
 

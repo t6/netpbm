@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmconvol User Manual" 0 "30 April 2017" "netpbm documentation"
+.TH "Pnmconvol User Manual" 0 "30 November 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -43,6 +43,11 @@ This program is part of
 .PP
 \fBpnmconvol\fP reads a Netpbm image as input, convolves it with
 a specified convolution matrix, and writes a Netpbm image as output.
+.PP
+A command use for convolution is blurring.  See examples in the
+.BR "\fBpamgauss\fP" (1)\c
+\& manual.
+  
 .PP
 Convolution means replacing each pixel with a weighted average of
 the nearby pixels.  The weights and the area to average are determined
@@ -414,6 +419,7 @@ convolution matrix.  See
 Convolution Matrix
 .UE
 \&.
+
 
 
 

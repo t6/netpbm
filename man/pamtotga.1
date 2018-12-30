@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamtotga User Manual" 0 "12 June 2008" "netpbm documentation"
+.TH "Pamtotga User Manual" 0 "06 November 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -13,9 +13,10 @@ pamtotga - convert a Netpbm image to a TrueVision Targa file
 .SH SYNOPSIS
 
 \fBpamtotga\fP
-[\fB-mono|-cmap|-rgb\fP]
+[\fB-mono|-cmap|-cmap16|-rgb\fP]
 [\fB-norle\fP]
 [\fB-name=\fP\fIname\fP
+[\fB-verhose\fP]
 [\fIpamfile\fP]
 .PP
 All options can be abbreviated to their shortest unique prefix.  You
@@ -56,9 +57,28 @@ image with maxval 255.
 
 .TP
 \fB-cmap\fP
-Make output Targa file of type 24 bit colormapped.  Input must contain no
-more than 256 distinct colors. 
+Make output Targa file use a color map (palette) to make the output smaller.
+.sp
+Each color in the color map is 3 bytes, 8 bits each of red, green, and blue,
+unless the input is black and white or grayscale, in which case each color in
+the palette is represented by one byte.
+.sp
+Input must contain no more than 256 distinct colors and must not contain
+transparency information.
+.sp
+(The transparency limitation is not a limitation of the format, but
+of \fBpamtotga\fP.  Implementing a color map that contains transparency
+information is harder to implement).
 
+.TP
+\fB-cmap16\fP
+Same as \fB-cmap\fP, except a color map entry for full color input is 5
+bits each of red, green, and blue, stored as two bytes (16 bits).
+.sp
+Restrictions are the same as for \fB-cmap\fP.
+.sp
+This option was new in Netpbm 10.85 (December 2018).
+    
 .TP
 \fB-mono\fP
 Make output Targa file of type 8 bit monochrome.  Input must be PBM or PGM
@@ -92,6 +112,12 @@ the first period (or the whole thing if there is no period).  It truncates
 it as necessary to meet TGA standards.  If you specify (or default to)
 Standard Input, \fBpamtotga\fP omits the image ID from the TGA header.
 
+.TP
+\fB-verbose\fP
+This causes \fBpamtotga\fP to issues messages about the conversion
+process.
+
+      
 
 
 .UN seealso
@@ -121,7 +147,7 @@ In Netpbm 10.15 (April 2003), the program became the first in the
 Netpbm package to recognize a transparency channel in a PAM.  It recognized
 tuple type "RGBA".  But when this kind of PAM image was later
 added to the PAM specification, it was specified with tuple type
-"RGB_ALPHA".  So in Netpbm 10-26 (January 2005), \fBpamtotga\fP
+"RGB_ALPHA".  So in Netpbm 10.26 (January 2005), \fBpamtotga\fP
 changed to recognize "RGB_ALPHA" instead of "RGBA".
 
 .UN author

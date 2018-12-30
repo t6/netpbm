@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmpad User Manual" 0 "1 July 2015" "netpbm documentation"
+.TH "Pnmpad User Manual" 0 "18 October 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -85,9 +85,9 @@ padding added to the left and right sides, respectively, of the image.
 .sp
 Alternatively, you can specify \fB-width\fP and just one of
 \fB-left\fP and \fB-right\fP and \fBpnmpad\fP calculates the required
-padding on the other side based on the width of the input image.  If
-the \fB-width\fP value is less than the width of the image plus the
-specified padding, the \fB-width\fP values is ignored.
+padding on the other side to make the output \fIwidth\fP pixels wide.  If
+the \fB-width\fP value is less than the width of the input image plus the
+specified padding, \fBpnmpad\fP ignores \fB-width\fP.
 .sp
 If you specify all three of \fB-width\fP, \fB-left\fP, and
 \fB-right\fP, you must ensure that the \fB-left\fP and \fB-right\fP
