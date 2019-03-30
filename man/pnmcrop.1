@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmcrop User Manual" 0 "31 December 2016" "netpbm documentation"
+.TH "Pnmcrop User Manual" 0 "29 March 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -14,7 +14,13 @@ pnmcrop - crop a Netpbm image
 
 \fBpnmcrop\fP
 
-[\fB-white\fP|\fB-black\fP|\fB-sides\fP]
+[\fB-white\fP
+|\fB-black\fP
+|\fB-sides\fP
+|\fB-bg-color=\fP\fIcolor\fP
+|\fB-bg-corner=\fP{
+\fBtopleft\fP|\fBtopright\fP|\fBbottomleft\fP|\fBbottomright\fP}
+]
 
 [\fB-left\fP]
 
@@ -24,13 +30,17 @@ pnmcrop - crop a Netpbm image
 
 [\fB-bottom\fP]
 
-[\fB-verbose\fP]
-
 [\fB-margin=\fP\fIpixels\fP]
 
 [\fB-closeness=\fP\fIcloseness_percent\fP]
 
 [\fB-borderfile=\fP\fIfilename\fP]
+
+[\fB-blank-image=\fP{\fBabort\fP|\fBpass\fP|\fBminimize\fP|\fBmaxcrop\fP}]
+
+{[\fB-reportfull\fP]|[\fB-reportsize\fP]}
+
+[\fB-verbose\fP]
 
 [\fIpnmfile\fP]
 .PP
@@ -90,11 +100,31 @@ ones, use \fBpnmcat\fP or \fBpamcomp\fP.
 \fB-white\fP
 Take white to be the background color.  \fBpnmcrop\fP removes
 borders which are white.
+.sp
+You may specify at most one of \fB-black\fP, \fB-white\fP, \fB-sides\fP,
+\fB-bg-color\fP, and \fB-bg-corner\fP.
 
 .TP
 \fB-black\fP
 Take black to be the background color.  \fBpnmcrop \fP removes
 borders which are black.
+.sp
+You may specify at most one of \fB-black\fP, \fB-white\fP, \fB-sides\fP,
+\fB-bg-color\fP, and \fB-bg-corner\fP.
+
+.TP
+\fB-bg-color=\fP\fIcolor\fP
+This tells \fBpnmcrop\fP what color is the background - it will crop
+areas of this color.  \fIcolor\fP is a value that would be used as the
+.UR libnetpbm_image.html#colorname
+argument of the \fBpnm_parsecolor()\fP library routine
+.UE
+\&.
+.sp
+You may specify at most one of \fB-black\fP, \fB-white\fP, \fB-sides\fP,
+\fB-bg-color\fP, and \fB-bg-corner\fP.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
 
 .TP
 \fB-sides\fP
@@ -113,6 +143,20 @@ color.
 The \fB-sides\fP option slows \fBpnmcrop\fP down, as it reads the
 entire image to determine the background color in addition to the up
 to three times that it would read it without \fB-sides\fP.
+.sp
+You may specify at most one of \fB-black\fP, \fB-white\fP, \fB-sides\fP,
+\fB-bg-color\fP, and \fB-bg-corner\fP.
+
+.TP
+\fB-bg-corner=\fP{\fBtopleft\fP|\fBtopright\fP|\fBbottomleft\fP|\fBbottomright\fP
+This option indicates a corner which is background.  \fBpnmcrop\fP will
+use the color of this corner as the background color and crop edges of that
+color.
+.sp
+You may specify at most one of \fB-black\fP, \fB-white\fP, \fB-sides\fP,
+\fB-bg-color\fP, and \fB-bg-corner\fP.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
 
 .TP
 \fB-left\fP
@@ -186,12 +230,124 @@ image as the \fB-borderfile\fP image, but the original speckled version as
 the input image.  That way, you crop the borders, but retain the true
 foreground image, speckles and all.
 .sp
+The border file must have the same number of images in it as the input
+file; the background color determination for image N of the input is based on
+the image N of the border file.
+.sp
 This option was new in Netpbm 10.29 (August 2005).
 .sp
 Before Netpbm 10.46 (March 2009), the original image and not the
 border file determines the background color.  \fBpnmcrop\fP
 fails if there is no apparent background color in the original image
 (i.e. the corners of the image don't have a common color).
+
+.TP
+\fB-blank-image=\fP{\fBabort\fP|\fBpass\fP|\fBminimize\fP|\fBmaxcrop\fP}
+This determines how \fBpnmcrop\fP handles an image which is entirely
+  background (blank), a case where cropping doesn't make much sense.
+
+
+.TP
+abort
+  
+program fails, with explanatory message (default)
+
+.TP
+pass
+  
+no modification to image
+
+.TP
+minimize
+  
+output is a single pixel (of the background color)
+
+.TP
+maxcrop
+    
+This odd function selects a hypothetical cropping which is not even
+      possible, and therefore is valid only with \fB-reportfull\fP or
+      \fB-reportsize\fP.  The cropping that this selects is a crop of the
+      entire image on every side on which you request cropping.  So if you
+      request cropping only on the left, of a 600 pixel wide image, this
+      selects a cropping of 600 pixels from the left and none from the other
+      three sides.  Note that were this cropping actually applied, this would
+      produce an image with no pixels, which is not a valid Netpbm image.  But
+      it gets stranger still if you request cropping on both the right and the
+      left.  In that case, the cropping selected is a cropping of 600 pixels
+      from both the right and left sides, which would leave a negative-width
+      image.
+.sp
+      This is actually useful if you are trying to find a single set of
+      cropping parameters to crop a stream of images.  To do this, you could
+      do a pass with \fB-reportsize\fP and \fB-blank-image=maxcrop\fP and
+      compute the maximum crop for each edge, and then use that in a second
+      pass without \fB-reportsize\fP to do the crop.  In this scenario, any
+      all-background (blank) images would have no effect on the cropping
+      parameters you compute.  If you do this, you must make special
+      consideration of a stream with nothing but blank images.
+
+
+.sp
+\fB-margin\fP is always ignored when the image is all background.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+.TP
+\fB-reportfull\fP
+With this option, \fBpnmcrop\fP does not actually crop anything.  Instead, it
+just prints to Standard Output parameters of the cropping it would have done.
+The output is a single line per image, like in this example:
+
+.nf
+  \f(CW
+     0 +7 -20 -10 200 300 rgb-255:10/0/255 0.0
+  \fP
+.fi
+.sp
+The line is composed of the following blank-delimited tokens:
+
+
+.IP \(bu
+how many pixels would be cropped or padded on the left.  This is
+    a signed decimal number, where + means pad and - means crop.  If there
+    would be no change, this is unsigned zero.
+
+.IP \(bu
+same, but for the right side.
+
+.IP \(bu
+same, but for the top.
+
+.IP \(bu
+same, but for the bottom.
+
+.IP \(bu
+the resulting image width in pixels, in decimal.
+
+.IP \(bu
+the resulting image height in pixels, in decimal.
+
+.IP \(bu
+The color \fBpnmcrop\fP took to be the background color, like
+   'rgb-255:10/0/255' (This is a format recognized by
+   the <a href="libnetpbm_image.html#colorname">\fBpnm_parsecolor()\fP
+   library routine).  The maxval in the color specification is the maxval of
+   the image.
+
+.IP \(bu
+The closeness value (see \fB-closeness\fP option) \fBpnmcrop\fP
+   used, in floating point decimal.
+
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+.TP
+\fB-reportsize\fP
+This is like \fB-reportfull\fP, but reports only the left, right, top,
+bottom, width, and height.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
 
 .TP
 \fB-verbose\fP

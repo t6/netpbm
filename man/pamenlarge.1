@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamenlarge User Manual" 0 "17 March 2010" "netpbm documentation"
+.TH "Pamenlarge User Manual" 0 "07 January 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -12,7 +12,14 @@ pamenlarge - Enlarge a Netpbm image N times
 .UN synopsis
 .SH SYNOPSIS
 
+\fBpamenlarge\fP
+[\fB-scale=\fP\fIinteger\fP]
+[\fB-xscale=\fP\fIinteger\fP]
+[\fB-yscale=\fP\fIinteger\fP]
+[\fIfilename\fP]
+
 \fBpamenlarge\fP \fIN\fP [\fIpnmfile\fP]
+
 
 .UN description
 .SH DESCRIPTION
@@ -37,13 +44,13 @@ then by 5 is faster than enlarging once by 15.  And because the algorithms
 are different for the different scale factors, some faster than others,
 the order matters too.  For example, the following examples all produce
 the same output -- an image 15 times bigger on edge than the input --
-but with at different spees, each being faster than the one before.
+but at different speeds, each being faster than the one before.
 
 .nf
 \f(CW
-     $ pamenlarge 15 test.pbm
-     $ pamenlarge 5 test.pbm | pamenlarge 3
-     $ pamenlarge 3 test.pbm | pamenlarge 5
+     $ pamenlarge -scale=15 test.pbm
+     $ pamenlarge -scale=5 test.pbm | pamenlarge -scale=3
+     $ pamenlarge -scale=3 test.pbm | pamenlarge -scale=5
 \fP
 .fi
 .PP
@@ -64,6 +71,51 @@ smoothed enlargement with less computational cost.
 \fBpbmreduce\fP can reduce by integer factors, but only for PBM
 images.
 
+.UN arguments
+.SH ARGUMENTS
+.PP
+As with most Netpbm programs, you can give the input file name as an
+argument or omit that argument and have it come from Standard Input (and
+you can specify '-' for the argument to specify Standard Input
+explicitly).
+.PP
+You can also specify the scale factor as an argument, for backward
+compatibility, but the preferred way to do that is with a \fB-scale\fP
+option, because it is easier to remember and read that way.  The scale factor
+argument goes before the file name argument.
+
+
+
+  
+.UN options
+.SH OPTIONS
+
+
+.TP
+\fB-scale=\fP\fIinteger\fP
+.TP
+\fB-xscale=\fP\fIinteger\fP
+.TP
+\fB-yscale=\fP\fIinteger\fP
+These specify the scale factor.  \fB-xscale\fP specifies the horizontal
+scale factor; \fB-yscale\fP specifies the vertical scale factor
+and \fB-scale\fP specifies both.
+.sp
+If you specify \fB-xscale\fP but not \fB-yscale\fP, \fBpamenlarge\fP
+does not scale vertically (i.e. the vertical scale factor is 1).  The converse
+applies if you specify \fB-yscale\fP and not \fB-xscale\fP.
+.sp
+You cannot specify \fB-scale\fP and also \fB-xscale\fP or \fByscale\fP.
+.sp
+You must specify at least one of these options, unless you use the
+deprecaated method of specifying the scale factor via argument.
+.sp
+These options were all new in Netpbm 10.86 (March 2019).  Before that, use
+the scale argument.
+  
+
+
+  
 .UN history
 .SH HISTORY
 .PP

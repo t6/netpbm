@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamfile User Manual" 0 "11 July 2006;" "netpbm documentation"
+.TH "Pamfile User Manual" 0 "04 January 2018" "netpbm documentation"
 
 .SH NAME
 
@@ -15,8 +15,10 @@ pamfile - describe a Netpbm (PAM or PNM) file
 \fBpamfile\fP
 
 [\fB-allimages\fP]
-[\fB-count\fP]
 [\fB-comments\fP]
+[\fB-count\fP]
+[\fB-machine\fP]
+[\fB-size\fP]
 
 [\fIfile\fP ...]
 .PP
@@ -81,7 +83,67 @@ images are in each input file.
 As with \fB-allimages\fP, this causes \fBpamfile\fP to read all the
 images.
 .sp
+You may specify at most one of \fB-count\fP, \fB-machine\fP,
+and \fB-size\fP.
+.sp
 This option was new with Netpbm 10.31 (December 2005).
+
+.TP
+\fB-machine\fP
+This makes the output more convenient for a machine to use, while
+  less convenient for a human.  \fBpamfile\fP reports the same information
+  as with no options.
+.sp
+The output is one line of ASCII text per image.  Each line consists of
+    the file name, followed by a colon, followed by a tab, then the following
+    blank-delimited tokens:
+
+    
+.IP \(bu
+Format: 'PAM', 'PBM', 'PGM', or
+        'PPM',
+.IP \(bu
+Subformat: 'PLAIN' or 'RAW'
+.IP \(bu
+Width: in pixels, in decimal
+.IP \(bu
+Height: in pixels, in decimal
+.IP \(bu
+Depth: in decimal
+.IP \(bu
+Maxval: in decimal (1 if image is PBM)
+.IP \(bu
+Tuple type (emulated if the image is not PAM)
+    
+.sp
+You may specify at most one of \fB-count\fP, \fB-machine\fP,
+and \fB-size\fP.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+.TP
+\fB-size\fP
+This makes the output contain only the height and width of the image,
+in a form convenient for machine processing.
+.sp
+There is one line of output per image, consising of two blank-delimited
+tokens:
+
+
+.IP \(bu
+Width: in pixels, in decimal
+.IP \(bu
+Height: in pixels, in decimal
+  
+.sp
+Note that there is no way to tell which image is in which file, if you have
+multiple input files with multiple images.  If that is your case,
+use \fB-machine\fP instead.
+.sp
+You may specify at most one of \fB-count\fP, \fB-machine\fP, and
+\fB-size\fP.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
 
 
 

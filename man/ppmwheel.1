@@ -3,18 +3,21 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Ppmwheel User Manual" 0 "11 January 2003" "netpbm documentation"
+.TH "Ppmwheel User Manual" 0 "03 February 2019" "netpbm documentation"
 
-.UN lbAB
 .SH NAME
 ppmwheel - make a PPM image of a color wheel
 
-.UN lbAC
+.UN synopsis
 .SH SYNOPSIS
+
 \fBppmwheel\fP
 \fIdiameter\fP
+[{\fB-huevalue\fP | \fB-huesaturation\fP}]
+[\fB-maxval=\fP\fIN\fP]
 
-.UN lbAD
+
+.UN description
 .SH DESCRIPTION
 .PP
 This program is part of
@@ -24,20 +27,77 @@ This program is part of
 \fBppmwheel\fP produces a PPM image of a color wheel of the
 specified diameter inside a white square just large enough to hold it.
 .PP
-The color wheel is based on the HSV color model.  Hues are
-distributed angularly around the circle and the values are distributed
-radially and the saturation is zero everywhere.  The values are zero at
-the center, increasing linearly to maximum at the edge.  The maximum value
-corresponds to the maxval of the PPM image.
+The color wheel is based on the HSV color model.  Hues are distributed
+  angularly around the circle and the values and saturations are distributed
+  radially.
 .PP
-Hence, the image contains all of the secondary colors based on the
-red, green, and blue primary colors.  A secondary color is one that is
-composed of light of at most two of the three primary colors.
+You can generate three kinds of color wheel:
 
-.UN lbAE
-.SH OPTIONS
+.IP \(bu
+Hue-value: Select this with a \fB-huevalue\fP option.
+.sp
+The saturation is 100% everywhere.  The value goes from zero to 100%
+  linearly, from the center of the wheel to the edge.  So the center is black.
+.sp
+Hence, the image consists of all of the secondary colors based on the
+  red, green, and blue primary colors.  A secondary color is one that is
+  composed of light of at most two of the three primary colors.
+
+.IP \(bu
+Hue-saturation: Select this with a \fB-huesaturation\fP option.
+.sp
+The value is 100% everywhere.  The saturation goes from zero to 100%
+  linearly, from the center of the wheel to the edge.  So the center is white.
+
+.IP \(bu
+Ppmcirc: Select this by not specifying any other wheel type option.
+.sp
+The saturation is 100% everywhere.  The value is a strange function of
+  the distance from the center, increasing as the square root of the distance
+  until halfway out, then decreasing as the 8th root of the distance the rest
+  of the way.  We don't know what the point of this is, but it is what the
+  program Ppmcirc by Peter Kirchgessner in 1995 does, and was the only option
+  in \fBppmwheel\fP from its inception in 2003 to 2019.
+      
+
+
+
+.UN arguments
+.SH ARGUMENTS
 .PP
-None.
+You must specify one non-option argument: the radius of the color wheel
+in pixels.
+.PP
+This is also the height and width of the output image.
+
+  
+.UN options
+.SH OPTIONS
+
+
+.TP
+\fB-huevalue\fP
+  
+This selects a hue-value color wheel.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+.TP
+\fB-huesaturation\fP
+  
+This selects a hue-saturation color wheel.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+.TP
+\fB-maxval=\fP\fIN\fP
+  
+This selects the maxval for the image.  The default is 255.
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+
+
+
 
 .UN seealso
 .SH SEE ALSO
@@ -48,13 +108,13 @@ None.
 .BR "ppm" (5)\c
 \&
 
-.SH HISTORY
 .UN history
+.SH HISTORY
 .PP
 \fBppmwheel\fP was added to Netpbm in Release 10.14 (March 2003).
 
 
-.UN lbAH
+.UN author
 .SH AUTHOR
 
 Copyright (C) 1995 by Peter Kirchgessner

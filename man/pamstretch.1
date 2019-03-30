@@ -3,14 +3,13 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamstretch User Manual" 0 "11 November 2001" "netpbm documentation"
+.TH "Pamstretch User Manual" 0 "2 Februrary 2019" "netpbm documentation"
 
-.UN lbAB
 .SH NAME
 
 pamstretch - scale up a PNM or PAM image by interpolating between pixels.
 
-.UN lbAC
+.UN synopsis
 .SH SYNOPSIS
 
 \fBpamstretch\fP
@@ -30,7 +29,7 @@ You can use the minimum unique abbreviation of the options.  You can use
 two hyphens instead of one.  You can separate an option name from its value
 with white space instead of an equals sign.
 
-.UN lbAD
+.UN description
 .SH DESCRIPTION
 .PP
 This program is part of
@@ -56,29 +55,43 @@ what to do with the right/bottom edges.  The default behaviour is to
 scale those up without interpolation (more precisely, the right edge
 is only interpolated vertically, and the bottom edge is only
 interpolated horizontally), but there are two other possibilities,
-selected by the \fBblackedge\fP and \fBdropedge\fP options.
-
-.UN lbAE
+selected by the \fB-blackedge\fP and \fB-dropedge\fP options.
+.PP
+In the special case that the stretch factor is 1, there is no issue with
+the right and bottom edges, the edges of the output are identical to the edges
+of the input regardless of \fB-blackedge\fP and \fB-dropedge\fP.  However,
+before Netpbm 10.86 (March 2019), \fB-dropedge\fP would cause the edge to be
+dropped even where the stretch factor was 1.
+  
+  
+.UN parameters
 .SH PARAMETERS
 .PP
 The \fIN\fP parameter is the scale factor.  It is valid only if
 you \fIdon't\fP specify \fB-xscale\fP or \fB-yscale\fP.  In that
 case, \fBpamstretch\fP scales in both dimensions and by the scale
 factor \fIN\fP.
+.PP
+Before Netpbm 10.86 (March 2019), 1 was not a valid value.
+  
 
-.UN lbAF
+.UN options
 .SH OPTIONS
 
 
 .TP
 \fB-xscale=\fP\fIX\fP
 This is the horizontal scale factor.  If you don't specify this, but do
-specify a vertical scale factor, the horizontal scale factor is 1. 
-
+specify a vertical scale factor, the horizontal scale factor is 1.
+.sp
+This option was new in Netpbm 9.21 (December 2001).
+  
 .TP
 \fB-yscale=\fP\fIY\fP
 This is the vertical scale factor.  If you don't specify this, but
 do specify a horizontal scale factor, the vertical scale factor is 1.
+.sp
+This option was new in Netpbm 9.21 (December 2001).
 
 .TP
 \fB-blackedge\fP
@@ -92,15 +105,15 @@ which is a slightly odd size.
 
 
 
-.UN lbAG
-.SH BUGS
+.UN limitations
+.SH Limitations
 .PP
 Usually produces fairly ugly output for PBMs. For most PBM input
 you'll probably want to reduce the `noise' first using something like
 .BR "pnmnlfilt" (1)\c
 \&.
 
-.UN lbAH
+.UN seealso
 .SH SEE ALSO
 .BR "pamstretch-gen" (1)\c
 \&,
@@ -111,7 +124,7 @@ you'll probably want to reduce the `noise' first using something like
 .BR "pnmnlfilt" (1)\c
 \&
 
-.UN lbAI
+.UN author
 .SH AUTHOR
 .PP
 Russell Marks (\fIrussell.marks@ntlworld.com\fP).

@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmquant User Manual" 0 "09 April 2013" "netpbm documentation"
+.TH "Pnmquant User Manual" 0 "09 February 2019" "netpbm documentation"
 
 .SH NAME
 pnmquant - quantize the colors in a Netpbm image to a smaller set
@@ -43,6 +43,27 @@ This program is simply a combination of \fBpnmcolormap\fP and
 color map which is generated from the colors in that same input.  The
 options have the same meaning as in those programs.  See their
 documentation to understand \fBpnmquant\fP.
+.PP
+You may actually get fewer than \fBncolors\fP colors in the output because
+  the method \fBpnmcolormap\fP uses to choose the best set of colors for the
+  image is not the same as the method \fBpnmremap\fP uses to determine the
+  best color from the set to represent an individual color.  For example,
+  \fBpnmcolormap\fP may include salmon in the color map as the best
+  representative of a pink pixel in the input and include coral in the color
+  map as the best representative of an actual coral pixel in the input.  But
+  \fBpnmremap\fP is free to use any color in the color map to represent that
+  pink pixel and would find coral is a closer match for pink than salmon and
+  therefore use coral for pink.  \fBpnmremap\fP might not use salmon
+  for \fIany\fP pixel.
+.PP
+This waste of a slot in the color map is a consequence of the approximate
+  method \fBpnmcolormap\fP uses in order to compute the color map with a
+  practical amount of computation.
+
+
+.UN separate
+.SS Running \fBpnmcolormap\fP and \fBpnmremap\fP Separately
+
 .PP
 It is much faster to call \fBpnmcolormap\fP and \fBpnmremap\fP
 directly than to run \fBpnmquant\fP.  You save the overhead of the

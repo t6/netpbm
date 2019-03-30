@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamscale User Manual" 0 "29 December 2009" "netpbm documentation"
+.TH "Pamscale User Manual" 0 "03 January 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -17,7 +17,8 @@ pamscale - scale a Netpbm image
       [ 
          \fIscale_factor\fP 
          |
-         {\fB-xyfit\fP | \fB-xyfill\fP | \fB-xysize\fP} \fIcols\fP \fIrows\fP 
+         {\fB-xyfit\fP | \fB-xyfill\fP | \fB-xysize\fP}
+           \fIcols\fP \fIrows\fP 
          |
          \fB-reduce\fP \fIreduction_factor\fP 
          |
@@ -35,6 +36,7 @@ pamscale - scale a Netpbm image
          ]
          [\fB-linear\fP]
       }
+      [\fB-reportonly\fP]
       [\fIpnmfile\fP]
 
 .fi
@@ -124,6 +126,47 @@ scale up with \fB-pixels\fP.
 If you enlarge by a factor of 3 or more, you should probably add a
 \fIpnmsmooth\fP step; otherwise, you can see the original pixels in
 the resulting image.
+
+.UN reportonly
+.B \fB-reportonly\fP
+.PP
+The option \fB-reportonly\fP causes \fBpamscale\fP not to scale the
+image, but instead to report to Standard Output what scaling the options and
+the input image dimensions indicate.  For example, if you specify
+.nf
+\f(CW    -xyfill 100 100 -reportonly \fP
+.fi
+and the input image is 500 x 400, \fBpamscale\fP tells you that this means
+scaling by .25 to end up with a 125 x 100 image.
+.PP
+The output is intended to be convenient for machine processing.  In the
+example above, it would be
+
+.nf
+\f(CW
+    500 400 0.250000 0.250000 125 100
+\fP
+.fi
+.PP
+The output is a single line of text per input image, with blank-separated
+tokens as follows.
+
+
+.IP \(bu
+input width in pixels, decimal unsigned integer
+.IP \(bu
+input height in pixels, decimal unsigned integer
+.IP \(bu
+horizontal scale factor, floating point decimal, unsigned
+.IP \(bu
+vertical scale factor, floating point decimal, unsigned
+.IP \(bu
+output width in pixels, decimal unsigned integer
+.IP \(bu
+output height in pixels, decimal unsigned integer
+
+.PP
+\fB-reportonly\fP was new in Netpbm 10.86 (March 2019).
 
 
 .UN usage
@@ -409,10 +452,10 @@ has nonzero values on out to infinity and minus infinity.  That makes
 it hard to compute a convolution with it.  So instead, there are
 filter functions that approximate sinc but are nonzero only within a
 manageable range.  To get those, you multiply the sinc function by a
-\fIwindow function\fP, which you select with the \fB-window\fP
-option.  The same holds for other filter functions that go on forever
-like sinc.  By default, for a filter that needs a window function,
-the window function is the Blackman function.
+\fIwindow function\fP, which you select with the \fB-window\fP option.  The
+same holds for other filter functions that go on forever like sinc.  By
+default, for a filter that needs a window function, the window function is the
+Blackman function.  Hanning, Hamming, and Kaiser are alternatives.
 
 .B Filter Functions Besides Sinc
 .PP
@@ -451,12 +494,13 @@ to justify the implementation effort.
 .PP
 Resampling (\fB-filter\fP) was new in Netpbm 10.20 (January 2004).
 
-.B The filter functions
+.B The filter and window functions
 .PP
 Here is a list of the function names you can specify for the
-\fB-filter\fP option.  For most of them, you're on your own to figure
-out just what the function is and what kind of scaling it does.  These
-are common functions from mathematics.
+\fB-filter\fP or \fB-window\fPoption.  For most of them, you're on your own
+to figure out just what the function is and what kind of scaling it does.
+These are common functions from mathematics.  Note that some of these make
+sense only as filter functions and some make sense only as window funcions.
 
 
 .TP

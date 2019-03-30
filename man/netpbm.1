@@ -308,7 +308,7 @@ make up one second of a movie, keeping the images in the same files:
 .nf
 ls *.yuv
    | perl -ne 'chomp;
-   print yuvtoppm $_ | ppmbrighten -v 100 | ppmtoyuv >tmp$$.yuv;
+   print yuvtoppm $_ | pambrighten -value +100 | ppmtoyuv >tmp$$.yuv;
    mv tmp$$.yuv $_ 
    '
    | sh

@@ -63,15 +63,14 @@ building, you could use \fBppmchange\fP to change all pixels within
 on it.
 .PP
 You might even extract the argument for \fBppmchange\fP from the image in
-question, using \fBppmtoarbtxt\fP.  In the foregoing example, we knew the
+question, using \fBpamgetcolor\fP.  In the foregoing example, we knew the
 background was approximately SkyBlue, but if we didn't we could just get the
 color of the top left pixel, in a form suitable for the color arguments
 of \fBppmchange\fP like this:
 
 .nf
 \f(CW
-    $ echo "#(fred)/#(fgreen)/#(fblue)" >/tmp/bodyskl
-    $ color=$(pamcut 0 0 1 1 myimage.ppm | ppmtoarbtxt /tmp/bodyskl)
+    $ color=$(pamgetcolor 0,0 -infile=/tmp/bodyskl|cut --fields=2 -delim=' ')
 \fP
 .fi
 .PP
@@ -79,22 +78,20 @@ A more convenient means of dealing with a multi-shade background is
 to use \fBpnmquant\fP to produce a version of the image with a very small
 number of colors.  The background would likely then be all one color.
 .PP
-If the \fBpnmquant\fP and \fBppmchange\fP methods above do not
-adequately distinguish foreground colors from background colors, you can
-try a more elaborate method using \fBpnmremap\fP.
-If you can manually create a palette with
-one color to which all the background pixels are similar, and other colors
-to which the foreground pixels are similar, you can use it as input to
+If the \fBpnmquant\fP and \fBppmchange\fP methods above do not adequately
+distinguish foreground colors from background colors, you can try a more
+elaborate method using \fBpnmremap\fP.  If you can manually create a palette
+with one color to which all the background pixels are similar, and other
+colors to which the foreground pixels are similar, you can use it as input to
 \fBpnmremap\fP to create a smarter version of what you get with the
 \fBpnmquant\fP or \fBppmchange\fP methods, so that \fBpambackground\fP is
 more likely to separate background from foreground as your eye does.
 .PP
-The PAM that \fBpambackground\fP creates has a single plane, with
-a maxval of 1.  The sample value 1 means background; 0 means
-foreground.  There is no tuple type.  Some older programs (but none
-that are part of Netpbm) don't know what a PAM is and expect a mask to
-be in the form of a PGM or PBM image.  To convert
-\fBpambackground\fP's output to PBM, use \fBpamtopnm -assume\fP.  To
+The PAM that \fBpambackground\fP creates has a single plane, with a maxval
+of 1.  The sample value 1 means background; 0 means foreground.  There is no
+tuple type.  Some older programs (but none that are part of Netpbm) don't know
+what a PAM is and expect a mask to be in the form of a PGM or PBM image.  To
+convert \fBpambackground\fP's output to PBM, use \fBpamtopnm -assume\fP.  To
 convert to PGM, use \fBpgmtopgm\fP.
 .PP
 \fInetpbmfile\fP is the file specification of the input file, or
@@ -162,6 +159,8 @@ Tell interesting facts about the process.
 .BR "pgmtopgm" (1)\c
 \&,
 .BR "pamstack" (1)\c
+\&,
+.BR "pamgetcolor" (1)\c
 \&,
 .BR "pnm" (5)\c
 \&,

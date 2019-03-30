@@ -3,19 +3,18 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Ppmbrighten User Manual" 0 "12 January 2019" "netpbm documentation"
+.TH "Pambrighten User Manual" 0 "12 January 2019" "netpbm documentation"
 
 .SH NAME
-ppmbrighten - change a PPM image's Saturation and Value
+pambrighten - change a PPM image's Saturation and Value
 
 .UN synopsis
 .SH SYNOPSIS
 
-\fBppmbrighten\fP
-[\fB-normalize\fP]
+\fBpambrighten\fP
 [\fB-saturation=\fP[\fB+\fP|\fB-\fP\fIsaturation_percent\fP]]
 [\fB-value=\fP[\fB+\fP|\fB-\fP\fIvalue_percent\fP]]
-\fIppmfile\fP
+\fInetpbmfile\fP
 .PP
 Minimum unique abbreviation of option is acceptable.  You may use
 double hyphens instead of single hyphen to denote options.  You may use
@@ -29,59 +28,61 @@ This program is part of
 .BR "Netpbm" (1)\c
 \&.
 .PP
-\fBppmbrighten\fP increases or decreases the Saturation and Value
-(from the HSV color space) of each pixel of a PPM image.  You specify
-the per centage change for each of those parameters.
+\fBpambrighten\fP increases or decreases the Saturation and Value
+(from the HSV color space) of each pixel of a Netpbm image.  You specify
+the percentage change for each of those parameters.
 .PP
-You can also remap the colors of the pixels so their Values cover
-the full range of possible Values.
+You can also remap the colors of the pixels so their Values cover the full
+range of possible Values.
 .PP
-Hue-Saturation-Value, or HSV, is one way to represent a color, like
-the more well-known RGB.  Hue, Saturation, and Value are numbers in
-the range from 0 to 1.  We always capitalize them in this document
-when we mean the number from the HSV color space, especially since
-"value" as a conventional English word has a much more abstract
-meaning.
+The output format is the same as the input format and any extra channels,
+such as transparency, are passed through.
+  
+.PP
+Hue-Saturation-Value, or HSV, is one way to represent a color, like the
+more well-known RGB.  Hue, Saturation, and Value are numbers in the range from
+0 to 1.  We always capitalize them in this document when we mean the number
+from the HSV color space, especially since "value" as a conventional English
+word has a much more abstract meaning.
 .PP
 Value is a measure of how bright the color is, relative to some specified
-maximum (the PPM format is also defined in terms of a specified maximum
+maximum (the Netpbm formats are also defined in terms of a specified maximum
 brightness -- For the purposes of this program, they are the same).  In
 particular, it is the brightness of the brightest primary color component of
 the color divided by the maximum brightness possible for a component.  Zero
 Value means black.  White has full Value.
 .PP
-Hue is an indication of the secondary color with the same brightness
-that most closely approximates the color.  A secondary color is made
-of a combination of at most two of the primary colors.
+Hue is an indication of the secondary color with the same brightness that
+most closely approximates the color.  A secondary color is made of a
+combination of at most two of the primary colors.
 .PP
-Saturation is a measure of how close the color is to the color
-indicated by the Hue and Value.  A lower number means more light of
-the third primary color must be added to get the exact color.  Full
-Saturation means the color is a secondary color.  Zero Saturation
-means the color is gray (or black or white).  Decreasing the
-saturation of a color tends to make it washed out.
+Saturation is a measure of how close the color is to the color indicated by
+the Hue and Value.  A lower number means more light of the third primary color
+must be added to get the exact color.  Full Saturation means the color is a
+secondary color.  Zero Saturation means the color is gray (or black or white).
+Decreasing the saturation of a color tends to make it washed out.
 .PP
 If it is impossible to increase the Value of a pixel by the amount you
-specify (e.g. the Value is .5 and you specify +200%), \fBppmbrighten\fP
+specify (e.g. the Value is .5 and you specify +200%), \fBpambrighten\fP
 increases it to full Value instead.
 .PP
 If it is impossible to increase the Saturation of a pixel by the amount
 you specify (e.g. it is already half saturated and you specify +200%),
-\fBppmbrighten\fP increases it to full Saturation instead.
+\fBpambrighten\fP increases it to full Saturation instead.
 .PP
 For a simpler kind of brightening, you can use \fBpamfunc -multiplier\fP
-simply to increase the brightness of each pixel by a specified per centage,
+simply to increase the brightness of each pixel by a specified percentage,
 clipping each RGB component where the calculated brightness would exceed full
 brightness.  Thus, the brightest colors in the image would change chromaticity
-in addition to not getting the specified brightness boost.
-For \fIdecreasing\fP brightness, \fBpamfunc\fP should do the same thing as
-\fBppmbrighten\fP.
+in addition to not getting the specified brightness boost.  For
+\fIdecreasing\fP brightness, \fBpamfunc\fP should do the same thing as
+\fBpambrighten\fP.
 .PP
-\fBppmflash\fP does another kind of brightening.  It changes the
-color of each pixel to bring it a specified per centage closer to white.
-This increases the value and saturation.
+\fBppmflash\fP does another kind of brightening.  It changes the color of
+each pixel to bring it a specified percentage closer to white.  This increases
+the value and saturation.
 .PP
-\fBpambrighten\fP is the same as \fBppmbrighten\fP, except that it
+\fBpambrighten\fP is the same as \fBpambrighten\fP, except that it
 recognizes the various Netpbm image formats rather than treating them all as
 PPM.  The output format is the same as the input format and extra channels in
 a PAM image (such as a transparency channel) get passed through.
@@ -94,12 +95,12 @@ If you want to modify the Hues in the image, use \fBpamhue\fP.
 .PP
 To double the Value of each pixel:
 .nf
-ppmbrighten -value=100
+pambrighten -value=100
 .fi
 .PP
 To double the Saturation and halve the Value of each pixel:
 .nf
-ppmbrighten -saturation=+100 -value=-50
+pambrighten -saturation=+100 -value=-50
 .fi
 
 .UN options
@@ -108,26 +109,13 @@ ppmbrighten -saturation=+100 -value=-50
 
 .TP
 \fB-value=\fP\fIvalue_percent\fP
-This option specifies the amount, as a per centage, by which you want
-to change the Value of each pixel.  It may be negative.
+This option specifies the amount, as a percentage, by which you want to
+change the Value of each pixel.  It may be negative.
 
 .TP
 \fB-saturation=\fP\fIvalue_percent\fP
-This option specifies the amount, as a per centage, by which you want
-to change the Saturation of each pixel.  It may be negative.
-
-
-.TP
-\fB-normalize\fP
-This option causes \fBppmbrighten\fP to normalize contrast by linearly
-remapping the Values of the pixels to cover the range 0 to 1.
-.sp
-\fBppmbrighten\fP applies the brightening that you specify with 
-the \fB-value\fP option \fIafter\fP the remapping.
-.sp
-Before Netpbm 10.14 (March 2003), your input must be from a seekable
-file (not a pipe) to use \fB-normalize\fP.  If it isn't, the program fails
-with a bogus error message.
+This option specifies the amount, as a percentage, by which you want to
+change the Saturation of each pixel.  It may be negative.
 
   
 
@@ -141,9 +129,9 @@ with a bogus error message.
 \&, 
 .BR "ppmflash" (1)\c
 \&, 
-.BR "pambrighten" (1)\c
-\&, 
 .BR "pamaltsat" (1)\c
+\&, 
+.BR "ppmbrighten" (1)\c
 \&, 
 .BR "pamdepth" (1)\c
 \&, 
@@ -155,6 +143,13 @@ with a bogus error message.
 \&, 
 .BR "ppm" (5)\c
 \&
+
+.UN history
+.SH HISTORY
+.PP
+\fBpambrighten\fP was new in Netphm 10.86 (March 2019).  It was a
+PAM conversion of the much older \fBppmbrighten\fP.
+  
 
 .UN author
 .SH AUTHOR
@@ -172,5 +167,5 @@ implied warranty.
 This manual page was generated by the Netpbm tool 'makeman' from HTML
 source.  The master documentation is at
 .IP
-.B http://netpbm.sourceforge.net/doc/ppmbrighten.html
+.B http://netpbm.sourceforge.net/doc/pambrighten.html
 .PP

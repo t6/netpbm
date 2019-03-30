@@ -41,8 +41,8 @@ This program is part of
 \&.
 .PP
 \fBpamflip\fP flips a PAM or PNM image top for bottom or left for right,
-or transposes it horizontal for vertical, or rotates it 1, 2, or 3
-quarter turns.
+or transposes it horizontal for vertical, or rotates it 1, 2, or 3 quarter
+turns.
 .PP
 To rotate at other angles, use \fBpnmrotate\fP.  It is much slower,
 though.
@@ -172,9 +172,14 @@ If \fBpamflip\fP cannot fit the entire image in the amount of
 memory you specify, it does the transformation in chunks, using temporary
 files for intermediate results.
 .sp
-Strict horizontal transformations (either left for right or null),
-\fBpamflip\fP never keeps more than one row in memory, so the memory
-size is irrelevant and \fBpamflip\fP doesn't use temporary files.
+In strict horizontal transformations (left for right) or the null
+transformation, \fBpamflip\fP never keeps more than one row in memory, so the
+memory size is irrelevant and \fBpamflip\fP doesn't use temporary files.
+.sp
+In strict vertical transformations (top for bottom), even when you
+allow \fBpamflip\fP enough memory to keep the entire image in virtual memory,
+it accesses it in a single pass, which does not cause any thrashing; the
+chunks in temporary files thus don't help.
 .sp
 The real memory is important when you do a column for row type of
 transformation (e.g. \fB-rotate90\fP).  In that case, even if

@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmtopng User Manual" 0 "09 October 2016" "netpbm documentation"
+.TH "Pnmtopng User Manual" 0 "13 March 2019" "netpbm documentation"
 
 .SH NAME
 pnmtopng - convert a PNM image to PNG
@@ -134,17 +134,35 @@ with "unrecognized option," fall back to the old syntax.
 
 .TP
 \fB-verbose\fP
-     Display the format of the output file.
+This causes \fBpnmtopng\fP to display information about the format of the
+output file.
+
 .TP
 \fB-downscale\fP
-     Enables scaling of maxvalues of more then 65535 to 16 bit. Since
-     this means loss of image data, \fBpnmtopng\fP does not do it by
-     default..TP
+This enables \fBpnmtopng\fP to scale maxvalues of more then 65535 to 16
+bits. Since this means loss of image data, \fBpnmtopng\fP does not do it by
+default.
+
+.TP
 \fB-interlace\fP
-     Creates an interlaced PNG file (Adam7).
+This causes the PNG file to be interlaced, in Adam7 format.  The interlaced
+format is one in which the raster data starts with a low-resolution
+representation of the entire image, then continues with additional information
+for the entire image, then even more information, etc.  In Adam7 in
+particular, there are seven such passes of the whole image.  This is useful
+when you are receiving the image over a slow communication line as someone is
+waiting to see it.  The simplest thing to do in that case is wait for the
+entire image to arrive and then display it instantly, but then the user is
+wasting time staring at a blank space until the whole image arrives.  With the
+standard non-interlaced format, the data arrives row-by-row starting at the
+top, so the displayer could display each row of the image as it arrives and
+gradually paint down to the bottom.  But with an interlaced image, the
+displayer can start by showing a low-resolution version of the image, then
+gradually improve the display as more data arrives.
+     
 .TP
 \fB-alpha=\fP\fIfilename\fP
- This specifies the transparency (alpha) channel of the image.  You supply
+This specifies the transparency (alpha) channel of the image.  You supply
 the transparency channel as a standard PGM transparency mask (see
 the
 .BR "PGM" (5)\c

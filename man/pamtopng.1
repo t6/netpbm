@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamtopng User Manual" 0 "12 March 2017" "netpbm documentation"
+.TH "Pamtopng User Manual" 0 "13 March 2019" "netpbm documentation"
 
 .SH NAME
 pamtopng - convert a Netpbm image to PNG
@@ -24,6 +24,7 @@ pamtopng - convert a Netpbm image to PNG
 [\fB-text=\fP\fIfile\fP]
 [\fB-ztxt=\fP\fIfile\fP]
 [\fB-itxt=\fP\fIfile\fP]
+[\fB-interlace\fP]
 [\fIpnmfile\fP]
 
 .SH OPTION USAGE
@@ -285,6 +286,33 @@ This option allows you to specify the modification time value to be placed
 in the PNG output.  You can specify the year parameter either as a two or four
 digit value.
 
+.TP
+\fB-interlace\fP
+This causes the PNG file to be interlaced, in Adam7 format.  The interlaced
+format is one in which the raster data starts with a low-resolution
+representation of the entire image, then continues with additional information
+for the entire image, then even more information, etc.  In Adam7 in
+particular, there are seven such passes of the whole image.  This is useful
+when you are receiving the image over a slow communication line as someone is
+waiting to see it.  The simplest thing to do in that case is wait for the
+entire image to arrive and then display it instantly, but then the user is
+wasting time staring at a blank space until the whole image arrives.  With the
+standard non-interlaced format, the data arrives row-by-row starting at the
+top, so the displayer could display each row of the image as it arrives and
+gradually paint down to the bottom.  But with an interlaced image, the
+displayer can start by showing a low-resolution version of the image, then
+gradually improve the display as more data arrives.
+.sp
+When you specify this option, \fBpamtopng\fP must hold the entire image in
+memory at once, whereas without it, the program holds only one raster row at a
+time.  If you don't have enough memory for that, you might suffer extreme
+slowdowns or failure - not just in the process running \fBpamtopng\fP, but
+potentially throughout the system that shares memory with it.  \fBpnmtopng\fP
+does not have this limitation (it holds only one row at a time in memory even
+when generating an interlaced PNG).
+.sp
+This option was new in Netpbm 10.86 (March 2019).
+  
 .TP
 \fB-verbose\fP
 This causes the program to display various facts about the conversion.

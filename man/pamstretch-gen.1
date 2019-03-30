@@ -3,52 +3,48 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamstretch-gen User Manual" 0 "10 April 2000" "netpbm documentation"
+.TH "Pamstretch-gen User Manual" 0 "15 January 2019" "netpbm documentation"
 
-.UN lbAB
 .SH NAME
 
 pamstretch-gen - use pamstretch and pamscale to scale by non-integer values
 
-.UN lbAC
+.UN synopsis
 .SH SYNOPSIS
 
 \fBpamstretch-gen\fP \fIN\fP [\fIpnmfile\fP]
 
-.UN lbAD
+.UN description
 .SH DESCRIPTION
 .PP
 This program is part of
 .BR "Netpbm" (1)\c
 \&.
 
-\fBpamstretch-gen\fP is a program which uses
+\fBpamstretch-gen\fP is a program which
+uses
 .BR "pamstretch" (1)\c
-\&,
-.BR "pnmfile" (1)\c
-\&, and
+\&
+and
 .BR "pamscale" (1)\c
-\& to smoothly scale up a PNM file
-by any ratio; it's like a more general version of pamstretch (hence
-the name). But other than the `any ratio' bit, it's much the same as
-pamstretch. :-)
+\& to smoothly scale up a Netpbm
+image by any factor; it's like a more general version of \fBpamstretch\fP
+(hence the name).
+
+\fBpamstretch-gen\fP uses the \fB-dropedge\fP option on \fBpamstretch\fP.
+.PP
+The Netpbm global options \fB-quiet\fP and \fB-plain\fP do not exist
+on \fBpamstretch-gen\fP.
 
 
-.UN lbAE
-.SH LIMITATIONS
-
-The program uses \fBawk\fP just to make some simple floating-point
-calculations, which is probably overkill.  But using \fBdc\fP makes
-my head hurt.
-
-.UN lbAF
+.UN seealso
 .SH SEE ALSO
 .BR "pamstretch" (1)\c
 \&,
 .BR "pamscale" (1)\c
 \&
 
-.UN lbAG
+.UN author
 .SH AUTHOR
 
 Russell Marks (\fIrussell.marks@ntlworld.com\fP).

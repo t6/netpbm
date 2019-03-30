@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmcolormap User Manual" 0 "28 October 2017" "netpbm documentation"
+.TH "Pnmcolormap User Manual" 0 "09 February 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -167,8 +167,8 @@ largest spread of brightness; 2) largest spread of contribution to the
 luminosity of the color.  E.g. red is weighted much more than blue.  Select
 among these with the \fB-spreadbrightness\fP and \fB-spreadluminosity\fP
 options.  The default is \fB-spreadbrightness\fP.  Where there are multiple
-colors of the mediam magnitude, they are distributed arbitrarily among between
-the suboxes.  This arbitrary distribution depends upon what the system's
+colors of the median magnitude, they are distributed arbitrarily among between
+the subboxes.  This arbitrary distribution depends upon what the system's
 \fBqsort\fP function does with multiple equal values, so \fBpnmcolormap\fP
 may produce slightly different results on different systems.
 .PP
@@ -178,11 +178,22 @@ colors in the box, using the above definition of "greater"; 2) the mean of the
 colors (each component averaged separately by brightness) in the box; 3) the
 mean weighted by the number of pixels of a color in the image.
 .PP
+Select among these with the \fB-center\fP, \fB-meancolor\fP, and
+\fB-meanpixel\fP options.  The default is \fB-center\fP.
+.PP
 Note that in all three methods, there may be colors in the output
 which do not appear in the input at all.
 .PP
-Select among these with the \fB-center\fP, \fB-meancolor\fP, and
-\fB-meanpixel\fP options.  The default is \fB-center\fP.
+Also note that the color chosen to represent the colors in Box A the best
+may also represent a color in Box B better than the color chosen to represent
+the colors in Box B the best.  This is true for various measures of goodness
+of representation of one color by another.  In particular, if you
+use \fBpnmremap\fP to map the colors in the very image that you used to
+create the color map to the colors in that colormap, the colors in Box B will
+often map to the color \fBpnmcolormap\fP chose to represent some other box
+and in fact the color \fBpnmcolormap\fP chose to represent Box B may not
+appear in the \fBpnmremap\fP output at all.
+  
 
 .UN references
 .SH REFERENCES

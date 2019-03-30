@@ -69,8 +69,8 @@ For example, \fB-cropleft=50 -cropright=200\fP means to discard the
 leftmost 50 and rightmost 200 columns.
 .PP
 To specify the rectangle to keep, use \fB-left\fP, \fB-right\fP,
-\fB-top\fP, \fB-bottom\fP, \fB-width\fP, \fB-height\fP, and
-\fB-pad\fP options.
+\fB-top\fP, \fB-bottom\fP, \fB-width\fP, \fB-height\fP, and \fB-pad\fP
+options.
 .PP
 For example, \fB-left=50 -right=200\fP means to keep the 150 columns
 between Columns 50 and 200 inclusive.
@@ -159,9 +159,6 @@ The number of columns to be in the output.  Must be positive.
 The number of rows to be in the output.  Must be positive.
 
 .TP
-\fB-pad\fP
-
-.TP
 \fB-cropleft\fP
 .TP
 \fB-cropright\fP
@@ -179,6 +176,8 @@ can achieve the same thing with a negative value for \fB-left\fP, etc.
 Remember to subtract one; e.g. the equivalent of \fB-cropright=1\fP is
 \fB-right=-2\fP.
   
+.TP
+\fB-pad\fP
 If the rectangle you specify is not entirely within the input
 image, \fBpamcut\fP fails unless you also specify \fB-pad\fP.  In
 that case, it pads the output with black up to the edges you specify.
