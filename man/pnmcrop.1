@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmcrop User Manual" 0 "29 March 2019" "netpbm documentation"
+.TH "Pnmcrop User Manual" 0 "14 April 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -71,7 +71,18 @@ with \fB-sides\fP.
 By default, \fBpnmcrop\fP chops off any stripe of background color
 it finds, on all four sides.  You can tell \fBpnmcrop\fP to remove
 only specific borders with the \fB-left\fP, \fB-right\fP,
-\fB-top\fP, and \fB-bottom\fP options.
+  \fB-top\fP, and \fB-bottom\fP options.
+.PP
+But note that \fBpnmcrop\fP's determination of the background color is
+independent of which edges you crop, which may not be intuitive.  For example,
+imagine an image with a blue border at the top and a black border at the
+bottom and you say to crop the bottom (\fB-bottom\fP).  You may have expected
+to crop the black border, but you actually won't crop anything,
+because \fBpnmcrop\fP considers the background color to be whatever color the
+top two corners are, which is blue, and there is no blue at the bottom of the
+image.  If you do want \fBpnmcrop\fP to take the background color from the
+edges being cropped, use \fB-bg-corner\fP.
+  
 .PP
 If you want to leave some border, use the \fB-margin\fP option.  It
 will not only spare some of the border from cropping, but will fill in
@@ -331,7 +342,11 @@ the resulting image height in pixels, in decimal.
 .IP \(bu
 The color \fBpnmcrop\fP took to be the background color, like
    'rgb-255:10/0/255' (This is a format recognized by
-   the <a href="libnetpbm_image.html#colorname">\fBpnm_parsecolor()\fP
+   the 
+.UR libnetpbm_image.html#colorname
+\fBpnm_parsecolor()\fP
+.UE
+\&
    library routine).  The maxval in the color specification is the maxval of
    the image.
 
@@ -340,12 +355,16 @@ The closeness value (see \fB-closeness\fP option) \fBpnmcrop\fP
    used, in floating point decimal.
 
 .sp
+You cannot use \fB-borderfile\fP together with this option.
+.sp
 This option was new in Netpbm 10.86 (March 2019).
 
 .TP
 \fB-reportsize\fP
 This is like \fB-reportfull\fP, but reports only the left, right, top,
 bottom, width, and height.
+.sp
+You cannot use \fB-borderfile\fP together with this option.
 .sp
 This option was new in Netpbm 10.86 (March 2019).
 

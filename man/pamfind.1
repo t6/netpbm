@@ -15,6 +15,7 @@ pamfind - Print the locations of all tuples of a certain value in an image
 \fB-target=\fP\fIsample0\fP\fB,\fP\fIsample1\fP\fB,\fP ... |
 \fB-color=\fP\fIcolor\fP
 }
+[\fB-machine\fP]
 [\fIimagefile\fP]
 .PP
 All options can be abbreviated to their shortest unique prefix.
@@ -77,6 +78,14 @@ argument of the \fBpnm_parsecolor()\fP library routine
 \&.
 .sp
 You must specify exactly one of \fB-target\fP and \fB-color\fP.
+
+.TP
+\fB-machine\fP
+This makes the output more convenient for a machine to use, while
+  less convenient for a human.  \fBpamfind\fP reports the same information
+  as with no options.
+.sp
+This option was new in Netpbm 10.87 (March 2020).
 
 
 
