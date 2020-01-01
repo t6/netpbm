@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Ppmhist User Manual" 0 "15 August 2015" "netpbm documentation"
+.TH "Ppmhist User Manual" 0 "24 August 2019" "netpbm documentation"
 
 .UN name
 .SH NAME
@@ -91,15 +91,19 @@ The function of PPM output is essentially the same as the output of
 
 .TP
 \fB-sort=\fP{\fBfrequency\fP,\fBrgb\fP}
-The \fB-sort\fP option determines the order in which the colors
-are listed in the output.  \fBfrequency\fP means to list them in
-order of how pixels in the input image have the color, with the most
-represented colors first.  \fBrgb\fP means to sort them first by the
-intensity of the red component of the color, then of the green, then of
-the blue, with the least intense first.
+The \fB-sort\fP option determines the order in which the colors are
+listed in the output.  \fBrgb\fP means to sort them first by the intensity of
+the red component of the color, then of the green, then of the blue, with the
+least intense first.  \fBfrequency\fP means to list them in order of how many
+pixels in the input image have the color, with the most represented colors
+first.  Among colors with the same frequency, the order is the same as with
+\fBrgb\fP.
 .sp
 The default is \fBfrequency\fP.
-
+.sp
+Before Netpbm 10.88 (September 2019), with \fB-sort=frequency\fP, the
+order of colors that have the same frequency is arbitrary.
+  
 .TP
 \fB-hexcolor\fP
 Print the color components in hexadecimal.  See 

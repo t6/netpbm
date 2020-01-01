@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmcrop User Manual" 0 "14 April 2019" "netpbm documentation"
+.TH "Pnmcrop User Manual" 0 "04 October 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -291,12 +291,12 @@ This odd function selects a hypothetical cropping which is not even
 .sp
       This is actually useful if you are trying to find a single set of
       cropping parameters to crop a stream of images.  To do this, you could
-      do a pass with \fB-reportsize\fP and \fB-blank-image=maxcrop\fP and
-      compute the maximum crop for each edge, and then use that in a second
-      pass without \fB-reportsize\fP to do the crop.  In this scenario, any
-      all-background (blank) images would have no effect on the cropping
-      parameters you compute.  If you do this, you must make special
-      consideration of a stream with nothing but blank images.
+      do a pass with \fB-reportsize\fP and \fB-blank-image=maxcrop\fP to
+      compute the maximum crop for each edge, and then use those numbers in
+      \fB-crop\fIxxx\fP\fP options on a \fBpamcut\fP pass to do the crop.
+      In this scenario, any all-background (blank) images would have no effect
+      on the cropping parameters you compute.  If you do this, you must give
+      special consideration to a stream with nothing but blank images.
 
 
 .sp

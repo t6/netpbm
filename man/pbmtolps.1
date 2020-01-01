@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pbmtolps User Manual" 0 "12 March 2017" "netpbm documentation"
+.TH "Pbmtolps User Manual" 0 "06 July 2019" "netpbm documentation"
 
 .SH NAME
 pbmtolps - convert PBM image to PostScript
@@ -12,8 +12,14 @@ pbmtolps - convert PBM image to PostScript
 .SH SYNOPSIS
 
 \fBpbmtolps\fP
-[\fB-dpi\fP \fIn\fP]
+[\fB-dpi\fP=\fIn\fP]
 [\fIpbmfile\fP]
+.PP
+Minimum unique abbreviation of option is acceptable.  You may use
+double hyphens instead of single hyphen to denote options.  You may use
+white space in place of the equals sign to separate an option name
+from its value.
+
 
 .UN description
 .SH DESCRIPTION
@@ -22,18 +28,32 @@ This program is part of
 .BR "Netpbm" (1)\c
 \&.
 .PP
-\fBpbmtolps\fP reads a PBM image as input and outputs PostScript.
-The output Postscript uses lines instead of the image operator to
-generate a (device dependent) picture which will be imaged much
-faster.
+\fBpbmtolps\fP reads a PBM image as input and outputs PostScript.  The
+output Postscript uses lines instead of the image operator to generate a
+(device dependent) picture which will be imaged much faster.
 .PP
 \fBpnmtops\fP is a more general program for converting from the Netpbm
 formats to Postscript, though it cannot produce the particular arcane
 subformat that \fBpbmtolps\fP does.
 .PP
-The Postscript path length is constrained to be less that 1000
-points so that no limits are overrun on the Apple Laserwriter and
-(presumably) no other printers.
+One pixel of the input image corresponds to one printed pixel
+('dot').  For this to work, you must use a \fB-dpi\fP option to
+tell \fBpmtolps\fP the resolution of the target printer, in dots per inch.
+  
+.PP
+The Postscript program \fBpbmtolps\fP generates draws paths of less than
+1000 segments so as not to overrun limits on the Apple Laserwriter and
+possibly other printers.
+
+.UN options
+.SH Options
+
+
+.TP
+\fB-dpi=\fP\fIn\fP
+The resolution of the target printer, in dots per inch.
+
+
 
 .UN seealso
 .SH SEE ALSO

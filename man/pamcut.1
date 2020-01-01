@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamcut User Manual" 0 "30 April 2017" "netpbm documentation"
+.TH "Pamcut User Manual" 0 "04 October 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -62,7 +62,7 @@ You can specify either the rectangle to cut out and keep or specify the
 edges to crop off and discard, or a combination.
 .PP
 To request edges be cropped off, use options \fB-cropleft\fP,
-\fBcropright\fP, \fBcroptop\fP, and \fB-cropbottom\fP to indicate how many
+\fB-cropright\fP, \fB-croptop\fP, and \fB-cropbottom\fP to indicate how many
 rows or columns to discard.
 .PP
 For example, \fB-cropleft=50 -cropright=200\fP means to discard the
@@ -172,9 +172,9 @@ right, top, or bottom edges, respectively.
 The value must not be negative.
 .sp
 These option were new in Netpbm 10.85 (December 2018).  Before that, you
-can achieve the same thing with a negative value for \fB-left\fP, etc.
-Remember to subtract one; e.g. the equivalent of \fB-cropright=1\fP is
-\fB-right=-2\fP.
+can achieve the same thing with \fB-left\fP, \fBtop\fP, and negative values
+for \fB-right\fP and \fB-bottom\fP.  Remember to subtract one in the latter
+case; e.g. the equivalent of \fB-cropright=1\fP is \fB-right=-2\fP.
   
 .TP
 \fB-pad\fP

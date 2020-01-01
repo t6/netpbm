@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmpad User Manual" 0 "18 October 2018" "netpbm documentation"
+.TH "Pnmpad User Manual" 0 "05 October 2019" "netpbm documentation"
 
 .SH NAME
 
@@ -13,7 +13,6 @@ pnmpad - add borders to a PNM image
 .SH SYNOPSIS
 
 \fBpnmpad \fP
-[\fB-verbose\fP]
 [\fB-white\fP|\fB-black\fP]
 [\fB-width=\fP\fIpixels\fP]
 [\fB-halign=\fP\fIratio\fP]
@@ -25,6 +24,8 @@ pnmpad - add borders to a PNM image
 [\fB-mheight=\fP\fIpixels\fP]
 [\fB-top=\fP\fIpixels\fP]
 [\fB-bottom=\fP\fIpixels\fP]
+[\fB-reportonly\fP]
+[\fB-verbose\fP]
 [\fIpnmfile\fP]
 
 
@@ -46,7 +47,13 @@ may be a better choice.
 \fBpnmmargin\fP does essentially the same thing, but allows you to
 add borders of any color and requires all four borders to be the same
 size.
-
+.PP
+You can use \fBpamcomp\fP to add borders of any content - solid color,
+  pattern, or whatever.  For example, if you wanted to add 10 pixels of red
+  borders to the top and bottom of a 100x100 image, you could create a
+  100x120 red image (e.g. with \fBppmmake\fP) and then use \fBpamcomp\fP
+  to insert your 100x100 image into the center of it.
+  
 
 .UN options
 .SH OPTIONS
@@ -58,15 +65,10 @@ its value.
 
 
 .TP
-\fB-verbose\fP
-Verbose output.
-
-.TP
 \fB-white\fP
 .TP
 \fB-black\fP
 Set pad color.  Default is \fB-black\fP.
-
 
 .TP
 \fB-left=\fP\fIpixels\fP
@@ -142,11 +144,77 @@ Before Netpbm 10.72 (September 2015), there is no \fB-mwidth\fP.
 \fB-valign=\fP\fIratio\fP
 .TP
 \fB-mheight=\fP\fIpixels\fP
-These options determine the vertical padding.  They are analogous
-to the horizontal padding options above.
+These options determine the vertical padding.  They are analogous to the
+horizontal padding options above.
+
+.TP
+\fB-reportonly\fP
+  This causes \fBpnmpad\fP to write to Standard Output a description of the
+  padding it would have done instead of producing an output image.  See
+  
+.UR #reportonly
+below
+.UE
+\& for a description of this output and ways
+  to use it.
+.sp
+This option was new in Netpbm 10.89 (December 2019).
+
+.TP
+\fB-verbose\fP
+This causes verbose messages.
 
 
 
+.UN reportonly
+.SH REPORT ONLY
+.PP
+When you specify \fB-reportonly\fP, \fBpnmpad\fP does not produce an
+  output image.  Instead, it writes to Standard Output a description of the
+  padding it would have done without \fB-reportonly\fP.
+.PP
+That description is one line of text, containing 6 decimal numbers of
+  pixels, separated by spaces:
+
+
+.IP \(bu
+left padding
+.IP \(bu
+right padding
+.IP \(bu
+top padding
+.IP \(bu
+bottom padding
+.IP \(bu
+output width
+.IP \(bu
+output height
+
+.PP
+Example:
+.nf
+    \f(CW
+      4 3 0 2 100 100
+    \fP
+.fi
+.PP
+One use for this is to make padding which is fancier than the black and
+  white that \fBpnmpad\fP can do.
+.PP
+In the following example, we pad an image with 10 pixels of gray all
+  around, without knowing the original image dimensions beforehand.  We do
+  this by generating a gray image with \fBpbmmake\fP and then pasting the
+  subject image into the middle of it.
+.PP
+The example uses shell arrays, such as exist in Bash, but not Dash.
+  
+.nf
+    \f(CW
+      pad=($(pnmpad -reportonly -left=10 -right=10 -top=10 -bottom=10))
+      pbmmake -gray 10 10 | pnmpaste input.ppm ${pad[0]} ${pad[2]} -
+    \fP
+.fi
+    
 
 .UN history
 .SH HISTORY
