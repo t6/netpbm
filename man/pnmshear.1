@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pnmshear User Manual" 0 "27 November 2006" "netpbm documentation"
+.TH "Pnmshear User Manual" 0 "22 March 2020" "netpbm documentation"
 
 .SH NAME
 
@@ -51,8 +51,10 @@ If the angle is negative, it shears the other way:
     +-------+  +-------+
 .fi
 
-The angle should not get too close to 90 or -90, or the resulting
-image will be unreasonably wide.
+The angle should not get too close to 90 or -90, or the resulting image will
+be unreasonably wide.  In fact, if it gets too close, the width will be so
+large that \fBpnmshear\fP cannot do computations in the word sizes it uses,
+and the program detects this and fails.
 .PP
 \fBpnmshear\fP does the shearing by looping over the source pixels
 and distributing fractions to each of the destination pixels.  This

@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamundice User Manual" 0 "1 April 2007" "netpbm documentation"
+.TH "Pamundice User Manual" 0 "11 January 2020" "netpbm documentation"
 
 .SH NAME
 
@@ -69,16 +69,21 @@ have the same height or every file have the same width.
 \fBpamdice\fP is the inverse of \fBpamundice\fP.  You can use
 \fBpamundice\fP to reassemble an image sliced up by \fBpamdice\fP.
 You can use \fBpamdice\fP to recreate the tiles of an image created
-by \fBpamundice\fP, but to do this the original ranks must all have
+by \fBpamundice\fP, but to do this, the original ranks must all have
 been the same height except for the bottom one and the original files
 must all have been the same width except the right one.
 .PP
-One use for this is to make pieces that take less computer
-resources than the whole image to process.  For example, you might
-have an image so large that an image editor can't read it all into
-memory or processes it very slowly.  You can split it into smaller
-pieces with \fBpamdice\fP, edit one at a time, and then reassemble them
-with \fBpamundice\fP.
+One use for this is to process an image in pieces when the whole image is
+too large to process.  For example, you might have an image so large that an
+image editor can't read it all into memory or processes it very slowly.  You
+can split it into smaller pieces with \fBpamdice\fP, edit one at a time, and
+then reassemble them with \fBpamundice\fP.
+.PP
+Of course, you can also use \fBpamundice\fP to compose various kinds of
+checkerboard images, for example, you could write a program to render a
+chessboard by computing an image of each square, then using \fBpamundice\fP
+to assemble them into a board.
+  
 .PP
 An alternative to join images in a single direction (i.e. a single
 rank or a single file) is \fBpnmcat\fP.  \fBpnmcat\fP gives you more
