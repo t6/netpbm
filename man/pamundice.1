@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamundice User Manual" 0 "11 January 2020" "netpbm documentation"
+.TH "Pamundice User Manual" 0 "26 April 2020" "netpbm documentation"
 
 .SH NAME
 
@@ -37,7 +37,8 @@ pamundice - combine grid of images (tiles) into one
 
 [\fB-verbose\fP]
 
-\fIinput_filename_pattern\fP
+{\fIinput_filename_pattern\fP,
+\fB-listfile=\fP\fIfilename\fP}
 .PP
 You can use the minimum unique abbreviation of the options.  You can use
 two hyphens instead of one.  You can separate an option name from its value
@@ -56,8 +57,10 @@ Output.
 .PP
 You can optionally make the pieces overlap.
 .PP
-See the \fIinput_filename_pattern\fP argument for information on
-naming of the input files.
+The images can either be in files whose names indicate where they go in the
+  output (e.g. 'myimage_part_03_04' could be the image for Row 3,
+  Column 4 - see the \fIinput_filename_pattern\fP argument) or listed in a
+  file, with a \fB-listfile\fP option.
 .PP
 The input images must all have the same format (PAM, PPM, etc.)
 and maxval and for PAM must have the same depth and tuple type.
@@ -103,12 +106,13 @@ combines a bunch of small images in a grid into a big one.  But its
 purpose is to produce a an index image of the input images.  So it
 leaves space between them and has labels for them, for example.
 
+
 .UN arguments
 .SH ARGUMENTS
 .PP
-There is one non-option argument, and it is mandatory:
-\fIinput_filename_pattern\fP.  This tells \fBpamundice\fP what files
-contain the input tiles.
+Unless you use a \fB-listfile\fP option,, there is one non-option
+argument, and it is mandatory: \fIinput_filename_pattern\fP.  This
+tells \fBpamundice\fP what files contain the input tiles.
 .PP
 \fBpamundice\fP reads the input images from files which are named
 with a pattern that indicates their positions in the combined image.
@@ -203,6 +207,23 @@ Default is zero -- no overlap.
 \fB-voverlap=\fP\fIpixels\fP
 This is analogous to \fB-hoverlap\fP, but \fBpamundice\fP
 clips the bottom edge of each image before joining it to the one below.
+
+.TP
+\fB-listfile=\fP\fIfilename\fP
+This option names a file that contains the names of all the input files.
+This is an alternative to specifying a file name pattern as an argument.
+.sp
+The named file contains file name, one per line.  Each file contains the
+  image for one tile, in row-major order, top to bottom, left to right.  So
+  the first file is the upper left tile, the second is the one to right of
+  that, etc.  The number of lines in the file must be equal to the number of
+  tiles in the output, the product of the \fB-across\fP and \fB-down\fP
+  values.
+.sp
+The file names have no meaning to \fBpamundice\fP.  You can use the same
+  file multiple times to have identical tiles in the output.
+.sp
+This option was new in Netpbm 10.90 (March 2020).
 
 .TP
 \fB-verbose\fP

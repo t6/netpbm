@@ -3,7 +3,7 @@
 .\" Do not hand-hack it!  If you have bug fixes or improvements, please find
 .\" the corresponding HTML page on the Netpbm website, generate a patch
 .\" against that, and send it to the Netpbm maintainer.
-.TH "Pamstereogram User Manual" 0 "19 June 2015" "netpbm documentation"
+.TH "Pamstereogram User Manual" 0 "10 May 2020" "netpbm documentation"
 .PP
 
 .PP
@@ -45,6 +45,7 @@ depth map
 [\fB-depth=\fP\fIfraction\fP]
 [\fB-planes=\fP\fInear_pixels\fP,\fIfar_pixels\fP]
 [\fB-randomseed=\fP\fIinteger\fP]
+[\fB-tileable\fP]
 [\fIinfile\fP]
 
 
@@ -354,6 +355,16 @@ behavior.
 This option was new in Netpbm 10.32 (February 2006).
 
 
+.TP
+\fB-tileable\fP
+Make the generated image horizontally tileable.  This works by
+blending a left-to-right rendering (the equivalent
+of \fB-xbegin\fP=0) with a right-to-left rendering (the equivalent
+of \fB-xbegin\fP=\fIwidth-1\fP).
+.sp
+This option was new in Netpbm 10.91 (June 2020).
+
+
 
 
 
@@ -510,7 +521,7 @@ Netpbm 10.61 (December 2012).
 .UN author
 .SH AUTHOR
 .PP
-Copyright \(co 2006-2015 Scott Pakin, \fIscott+pbm@pakin.org\fP.
+Copyright \(co 2006-2020 Scott Pakin, \fIscott+pbm@pakin.org\fP.
 
 .UN contents
 .SH Table Of Contents
